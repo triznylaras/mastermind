@@ -1,8 +1,9 @@
 module Mastermind
   class Game
+    include Display
+
     def play
-      @show = Display.new("instruction")
-      puts @show.instruction
+      puts instruction
       game_mode = mode_selection
       code_type = code_selection
       code_maker if game_mode == '1' && !code_type.nil?
