@@ -1,7 +1,7 @@
 module Mastermind
   class Game
-    include Mastermind::Textcontent
-    include Mastermind::Display
+    include TextContent
+    include Display
 
     def play
       puts instruction
@@ -21,8 +21,9 @@ module Mastermind
 
     def code_maker
       maker = ComputerSolver.new
+      maker.computer_start
     end
-    
+
     def code_selection
       puts game_message('allow_duplicate')
       code_type = gets.chomp
