@@ -1,24 +1,29 @@
+require_relative 'text_content'
+require_relative 'display'
+
 module Mastermind
   class HumanSolver
-    include Mastermind::TextContent
-    include Mastermind::Display
+    include TextContent
+    include Display
     include GameLogic
 
     attr_reader :computer_code, :guess, :exact_number, :same_number
 
     def initialize(code_type)
-      puts code_type.to_s
-      print random_numbers =
-              case code_type.to_s
-              when code_type == '2'
-                [rand(1..6), rand(1..6), rand(1..6), rand(1..6)]
-              when code_type == '1'
-                (1..6).to_a.sample(4)
-              else
-                []
-              end
       @code_type = code_type
+      random_numbers = generate_code(code_type)
+      puts code_type
       @computer_code = random_numbers.map(&:to_s)
+      puts random_numbers
+    end
+
+    def generate_code(code_type)
+      case code_type.to_s
+      when '2'
+        [rand(1..6), rand(1..6), rand(1..6), rand(1..6)]
+      when '1'
+        (1..6).to_a.sample(4)
+      end
     end
 
     def player_turns
@@ -59,7 +64,7 @@ module Mastermind
       return input if input.match(/^[1-6]{4}$/)
       return input if input.downcase == 'q'
 
-      puts("Error")
+      puts warning_message('')
       player_input
     end
 

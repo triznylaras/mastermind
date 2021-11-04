@@ -1,4 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/mastermind'
 
-Mastermind::TextContent.readlines "/tmp/x"
 Mastermind::Game.new.play
