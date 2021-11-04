@@ -1,8 +1,15 @@
+require_relative 'text_content'
+require_relative 'game_logic'
+require_relative 'display'
+
 module Mastermind
   class ComputerSolver
-    include Mastermind::TextContent
-    include Mastermind::Display
-    include Mastermind::GameLogic
+    attr_reader :maker_code, :turn_count, :exact_number, :same_number,
+              :total_number, :find_code_guesses, :four_numbers
+
+    include TextContent
+    include Display
+    include GameLogic
 
     def computer_start
       puts turn_message('code_prompt')
@@ -12,6 +19,14 @@ module Mastermind
       find_code_numbers
       find_code_order
       computer_game_over(@code_permutations[0])
+    end
+
+    def create_code
+      input = gets.chomp
+      return input if input.match(/^[1-6]{4}$/)
+  
+      puts warning_message('code_error')
+      create_code
     end
 
     def computer_turn(master, guess)
@@ -30,6 +45,16 @@ module Mastermind
       @turn_count = 1
       @find_code_guesses = []
       @four_numbers = find_four_numbers(options)
+    end
+
+    def find_four_numbers(options, index = 0, guess = [])
+      guess.pop(4 - total_number) unless turn_count == 1
+      guess << options[index] until guess.length == 4
+      computer_turn(maker_code, guess)
+      @turn_count += 1
+      return guess if total_number == 4
+  
+      find_four_numbers(options, index + 1, guess)
     end
 
     def find_code_order
