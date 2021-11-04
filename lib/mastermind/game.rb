@@ -1,14 +1,27 @@
+require_relative 'text_content'
+require_relative 'display'
+
 module Mastermind
   class Game
-    include TextContent
     include Display
+    include TextContent
 
     def play
       puts instruction
       game_mode = mode_selection
-      code_type = code_selection
-      code_maker if game_mode == '1'
-      code_breaker(code_type) if game_mode == '2' && !code_type.nil?
+      enter_mode(game_mode)
+    end
+
+    def enter_mode(game_mode)
+      case game_mode
+      when '1'
+        code_maker
+      when '2'
+        code_type = code_selection
+        code_breaker(code_type)
+      else
+        puts warning_message('answer error')
+      end
     end
 
     def mode_selection
