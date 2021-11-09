@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Module to store text format, number and color codes to be displayed
 module Display
   def formatting(description, string)
     @text_formatting = {

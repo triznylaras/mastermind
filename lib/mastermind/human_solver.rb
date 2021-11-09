@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative 'text_content'
 require_relative 'display'
 
 module Mastermind
+  # Class for solving 'master code' from computer (code breaker mode)
   class HumanSolver
     include TextContent
     include Display
@@ -12,9 +15,7 @@ module Mastermind
     def initialize(code_type)
       @code_type = code_type
       random_numbers = generate_code(code_type)
-      puts code_type
       @computer_code = random_numbers.map(&:to_s)
-      puts random_numbers
     end
 
     def generate_code(code_type)
@@ -28,7 +29,6 @@ module Mastermind
 
     def player_turns
       puts turn_message('breaker_start')
-      print @computer_code
       turn_order
       human_game_over(computer_code, guess)
     end

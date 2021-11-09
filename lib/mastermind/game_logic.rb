@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Mastermind
+  # Class to process the logic of the game
   module GameLogic
     def compare(master, guess)
       cont_master = master.clone

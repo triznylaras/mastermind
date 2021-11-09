@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require_relative 'text_content'
 require_relative 'text_instruction'
 require_relative 'display'
 
 module Mastermind
+  # Class for set up the game
   class Game
     include Display
     include TextContent

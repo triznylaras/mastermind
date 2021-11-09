@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Module for content text message
 module TextContent
   def formatting(description, string)
     {
